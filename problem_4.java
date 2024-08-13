@@ -13,11 +13,16 @@ public class EvenSquares {
         System.out.println("2. Slice the original list");
         int choice = scanner.nextInt();
         scanner.nextLine(); 
-        System.out.println("Enter the list of integers:");
+        System.out.println("Enter the list of integers (space-separated):");
         List<Integer> integers = new ArrayList<>();
         String[] input = scanner.nextLine().split(" ");
-        for (String str : input) {
-            integers.add(Integer.parseInt(str));
+        try {
+            for (String str : input) {
+                integers.add(Integer.parseInt(str));
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter valid integers.");
+            return;
         }
 
         if (choice == 1) {
@@ -29,15 +34,17 @@ public class EvenSquares {
             System.out.println("List of squares of even numbers: " + evenSquares);
 
         } else if (choice == 2) {
-
             System.out.println("Enter start index:");
             int startIndex = scanner.nextInt();
             System.out.println("Enter end index:");
             int endIndex = scanner.nextInt();
 
-            List<Integer> subList = integers.subList(startIndex, endIndex);
-
-            System.out.println("Sublist: " + subList);
+            if (startIndex < 0 || endIndex > integers.size() || startIndex >= endIndex) {
+                System.out.println("Invalid indices. Please ensure start index is less than end index and within the list range.");
+            } else {
+                List<Integer> subList = integers.subList(startIndex, endIndex);
+                System.out.println("Sublist: " + subList);
+            }
 
         } else {
             System.out.println("Invalid choice. Please run the program again.");
