@@ -15,6 +15,8 @@ public class UserInputValidation {
                 System.out.println("Username should not be empty.");
             } else if (username.length() > 50) {
                 System.out.println("Username should not exceed 50 characters.");
+            } else if (!username.matches("[a-zA-Z0-9]+")) {
+                System.out.println("Username should be alphanumeric.");
             } else {
                 break;
             }
@@ -33,6 +35,8 @@ public class UserInputValidation {
                 System.out.println("Password must contain at least one number.");
             } else if (!password.matches(".*[a-z].*") || !password.matches(".*[A-Z].*")) {
                 System.out.println("Password must contain both uppercase and lowercase characters.");
+            } else if (password.matches(".*(12345678|password).*")) {
+                System.out.println("Password is too common.");
             } else {
                 break;
             }
@@ -55,10 +59,9 @@ public class UserInputValidation {
     }
 
     public static boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]+$";
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 }
-
